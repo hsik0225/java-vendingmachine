@@ -2,7 +2,7 @@ package vendingmachine.model;
 
 public class Product {
     private final String name;
-    private final int amount;
+    private int amount;
     private final Money money;
 
     public Product(String name, int amount, Money money) {
@@ -23,11 +23,15 @@ public class Product {
             throw new IllegalArgumentException("입력한 수량이 숫자가 아닙니다.");
         }
 
-        if (parsedAmount < 0) {
-            throw new IllegalArgumentException("수량은 음수일 수 없습니다.");
-        }
+        validateAmount(parsedAmount);
 
         return new Product(name, parsedAmount, Money.from(money));
+    }
+
+    private static void validateAmount(int amount) {
+        if (amount < 0) {
+            throw new IllegalArgumentException("수량은 음수일 수 없습니다.");
+        }
     }
 
     public String getName() {
@@ -40,5 +44,10 @@ public class Product {
 
     public boolean isNameEqualsTo(String name) {
         return this.name.equals(name);
+    }
+
+    public void sold() {
+        this.amount -= 1;
+        validateAmount(this.amount);
     }
 }

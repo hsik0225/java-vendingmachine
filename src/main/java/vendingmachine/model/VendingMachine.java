@@ -33,6 +33,7 @@ public class VendingMachine {
     public void buy(String productName) {
         final Product product = products.findByName(productName);
         this.remainingMoney.subtract(product.getMoney());
+        product.sold();
     }
 
     public Map<Integer, Integer> getCoinCount() {
