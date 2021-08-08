@@ -8,6 +8,10 @@ public class OutputView {
         System.out.printf("투입된 금액: %d원\n", holdingMoney);
     }
 
+    public static void printChanges(int holdingMoney) {
+        System.out.printf("잔돈: %d원\n", holdingMoney);
+    }
+
     public static void printCoinCount(Map<Integer, Integer> coinCount) {
         System.out.println("잔돈");
 

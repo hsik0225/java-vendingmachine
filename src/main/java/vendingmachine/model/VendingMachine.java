@@ -7,14 +7,16 @@ public class VendingMachine {
     private final Products products;
     private final ChangesModule changesModule;
     private Money remainingMoney;
+    private boolean canReturnChanges;
 
     public VendingMachine(Products products, Money holdingMoney) {
-        this(products, ChangesModule.from(holdingMoney));
+        this(products, ChangesModule.from(holdingMoney), true);
     }
 
-    public VendingMachine(Products products, ChangesModule changesModule) {
+    public VendingMachine(Products products, ChangesModule changesModule, boolean canReturnChanges) {
         this.products = products;
         this.changesModule = changesModule;
+        this.canReturnChanges = canReturnChanges;
     }
 
     public void insertMoney(Money inputMoney) {
@@ -26,17 +28,29 @@ public class VendingMachine {
         return this.remainingMoney.getMoney();
     }
 
-    public boolean canBuyAnything() {
-        return products.canBuyAnything(getRemainingMoney()) && changesModule.canReturnChanges(this.remainingMoney);
-    }
-
-    public void buy(String productName) {
-        final Product product = products.findByName(productName);
-        this.remainingMoney.subtract(product.getMoney());
-        product.sold();
+    public boolean hasMoneyMoreThanMinPrice() {
+        return products.canBuyAnything(getRemainingMoney());
     }
 
     public Map<Integer, Integer> getCoinCount() {
         return changesModule.getCoinBox();
+    }
+
+    public boolean canBuy() {
+        return hasMoneyMoreThanMinPrice() && this.canReturnChanges;
+    }
+
+    public void buy(String productName) {
+        final Product product = products.findByName(productName);
+        final Money subtractedMoney = this.remainingMoney.subtract(product.getMoney());
+        this.canReturnChanges = changesModule.canReturnChanges(subtractedMoney);
+        if (canReturnChanges) {
+            this.remainingMoney = subtractedMoney;
+            product.decrease();
+        }
+    }
+
+    public boolean canReturnChanges() {
+        return this.canReturnChanges;
     }
 }

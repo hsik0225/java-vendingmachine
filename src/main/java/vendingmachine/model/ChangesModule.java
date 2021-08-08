@@ -22,6 +22,10 @@ public class ChangesModule {
         Map<Integer, Integer> coinCounts = new HashMap<>();
         List<Integer> coins = Coin.coins();
         int amount = money.getMoney();
+        if (amount < 10) {
+            return new HashMap<>();
+        }
+
         while (amount > 0) {
             final int coin = Randoms.pick(coins);
             if (amount >= coin) {
@@ -38,9 +42,11 @@ public class ChangesModule {
 
     public void addMoney(Money inputMoney) {
         final Map<Integer, Integer> inputCoins = changeMoneyToCoins(inputMoney);
-        for (Map.Entry<Integer, Integer> coinCount : coinBox.entrySet()) {
-            final int coin = coinCount.getKey();
-            coinBox.merge(coin, 1, (oldValue, newValue) -> oldValue + inputCoins.get(coin));
+        for (int coin : Coin.coins()) {
+            final Integer count = inputCoins.get(coin);
+            if (count != null) {
+                coinBox.put(coin, count);
+            }
         }
     }
 

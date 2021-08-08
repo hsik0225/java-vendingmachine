@@ -46,7 +46,7 @@ public class Product {
         return this.name.equals(name);
     }
 
-    public void sold() {
+    public void decrease() {
         this.amount -= 1;
         validateAmount(this.amount);
     }

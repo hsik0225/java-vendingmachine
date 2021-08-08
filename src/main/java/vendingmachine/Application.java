@@ -15,12 +15,17 @@ public class Application {
         final Money inputMoney = InputView.askInputMoney();
         vendingMachine.insertMoney(inputMoney);
 
-        while (vendingMachine.canBuyAnything()) {
+        while (vendingMachine.canBuy()) {
             OutputView.printRemainingMoney(vendingMachine.getRemainingMoney());
             final String productName = InputView.askProductToBuy();
             vendingMachine.buy(productName);
         }
 
-        OutputView.printCoinCount(vendingMachine.getCoinCount());
+        if (vendingMachine.canReturnChanges()) {
+            OutputView.printCoinCount(vendingMachine.getCoinCount());
+            return;
+        }
+
+        OutputView.printChanges(vendingMachine.getRemainingMoney());
     }
 }
