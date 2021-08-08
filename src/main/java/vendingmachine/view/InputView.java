@@ -44,6 +44,10 @@ public class InputView {
             products.add(matcher.group(2));
         }
 
+        if (products.isEmpty()) {
+            throw new IllegalArgumentException("상품 정보 포맷이 일치하지 않습니다. [<상품 이름>,<수량>,<가격>] 의 형태로 입력해주세요");
+        }
+
         return products.stream()
                        .map(InputView::removeBrackets)
                        .map(product -> {
