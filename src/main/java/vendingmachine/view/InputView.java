@@ -48,7 +48,7 @@ public class InputView {
                        .map(InputView::removeBrackets)
                        .map(product -> {
                            final String[] productInfo = product.split(",");
-                           return new Product(productInfo[PRODUCT_NAME_INDEX], productInfo[PRODUCT_AMOUNT_INDEX], productInfo[PRODUCT_PRICE_INDEX]);
+                           return Product.of(productInfo[PRODUCT_NAME_INDEX], productInfo[PRODUCT_AMOUNT_INDEX], productInfo[PRODUCT_PRICE_INDEX]);
                        })
                        .collect(Collectors.toList());
     }
