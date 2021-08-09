@@ -36,7 +36,7 @@ public class ChangesModule {
         Map<Integer, Integer> coinCount = new HashMap<>();
         int money = remainingMoney.getMoney();
         for (Integer coin : Coin.descendingOrder()) {
-            final int storedCount = coinBox.get(coin);
+            final int storedCount = coinBox.getOrDefault(coin, 0);
             final int needCount = money / coin;
             final int min = Math.min(storedCount, needCount);
             if (min != 0) {
@@ -50,10 +50,8 @@ public class ChangesModule {
     public void addMoney(Money inputMoney) {
         final Map<Integer, Integer> inputCoins = changeMoneyToCoins(inputMoney);
         for (int coin : Coin.descendingOrder()) {
-            final Integer count = inputCoins.get(coin);
-            if (count != null) {
-                coinBox.merge(coin, count, Integer::sum);
-            }
+            final int count = inputCoins.getOrDefault(coin, 0);
+            coinBox.merge(coin, count, Integer::sum);
         }
     }
 

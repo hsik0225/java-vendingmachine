@@ -12,6 +12,7 @@ repositories {
 
 dependencies {
     implementation 'com.github.Joyykim:wooteco-utils:0.1.0'
+    testImplementation 'org.mockito:mockito-inline:3.11.2'
     testImplementation 'org.assertj:assertj-core:3.19.0'
     testImplementation 'org.junit.jupiter:junit-jupiter:5.7.1'
 }
