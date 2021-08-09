@@ -20,10 +20,8 @@ public enum Coin {
                      .collect(Collectors.toList());
     }
 
-    public static List<Integer> coins() {
-        return Arrays.stream(Coin.values())
-                     .map(Coin::getValue)
-                     .collect(Collectors.toList());
+    public static int minValueCoin() {
+        return descendingOrder().get(0);
     }
 
     public int getValue() {
