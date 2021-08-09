@@ -22,6 +22,7 @@ public class VendingMachine {
     public void insertMoney(Money inputMoney) {
         this.remainingMoney = inputMoney;
         this.changesModule.addMoney(inputMoney);
+        this.canReturnChanges = changesModule.canReturnChanges(inputMoney);
     }
 
     public int getRemainingMoney() {
