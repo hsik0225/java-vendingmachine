@@ -1,21 +1,17 @@
 package vendingmachine.model;
 
 public class Product {
-    private final String name;
+    private final Name name;
     private int amount;
     private final Money money;
 
-    public Product(String name, int amount, Money money) {
+    public Product(Name name, int amount, Money money) {
         this.name = name;
         this.amount = amount;
         this.money = money;
     }
 
     public static Product of(String name, String amount, String money) {
-        if (name.trim().isEmpty()) {
-            throw new IllegalArgumentException("상품 이름은 공백일 수 없습니다.");
-        }
-
         int parsedAmount;
         try {
             parsedAmount = Integer.parseInt(amount);
@@ -25,7 +21,7 @@ public class Product {
 
         validateAmount(parsedAmount);
 
-        return new Product(name, parsedAmount, Money.from(money));
+        return new Product(Name.from(name), parsedAmount, Money.from(money));
     }
 
     private static void validateAmount(int amount) {
@@ -34,15 +30,15 @@ public class Product {
         }
     }
 
-    public String getName() {
-        return name;
-    }
-
     public Money getMoney() {
         return money;
     }
 
-    public boolean isNameEqualsTo(String name) {
+    public Name getName() {
+        return name;
+    }
+
+    public boolean isNameEqualsTo(Name name) {
         return this.name.equals(name);
     }
 

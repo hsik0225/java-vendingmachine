@@ -1,6 +1,7 @@
 package vendingmachine;
 
 import vendingmachine.model.Money;
+import vendingmachine.model.Name;
 import vendingmachine.model.Products;
 import vendingmachine.model.VendingMachine;
 import vendingmachine.view.InputView;
@@ -17,7 +18,7 @@ public class Application {
 
         while (vendingMachine.canBuy()) {
             OutputView.printRemainingMoney(vendingMachine.getRemainingMoney());
-            final String productName = InputView.askProductToBuy();
+            final Name productName = InputView.askProductToBuy();
             vendingMachine.buy(productName);
         }
 

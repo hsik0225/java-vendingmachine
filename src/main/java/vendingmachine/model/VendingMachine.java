@@ -40,7 +40,7 @@ public class VendingMachine {
         return hasMoneyMoreThanMinPrice() && this.canReturnChanges;
     }
 
-    public void buy(String productName) {
+    public void buy(Name productName) {
         final Product product = products.findByName(productName);
         final Money subtractedMoney = this.remainingMoney.subtract(product.getMoney());
         this.canReturnChanges = changesModule.canReturnChanges(subtractedMoney);

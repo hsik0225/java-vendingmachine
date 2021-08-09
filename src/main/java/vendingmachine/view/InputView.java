@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import com.woowahan.techcourse.utils.Scanners;
 
 import vendingmachine.model.Money;
+import vendingmachine.model.Name;
 import vendingmachine.model.Product;
 import vendingmachine.model.Products;
 
@@ -65,7 +66,7 @@ public class InputView {
         return Money.from(Integer.parseInt(input("투입할 금액을 입력해 주세요.")));
     }
 
-    public static String askProductToBuy() {
-        return input("구매할 상품명을 입력해 주세요.");
+    public static Name askProductToBuy() {
+        return Name.from(input("구매할 상품명을 입력해 주세요."));
     }
 }

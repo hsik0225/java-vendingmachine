@@ -16,10 +16,6 @@ public class Products {
         this.products = new ArrayList<>(products);
     }
 
-    public List<Product> getProducts() {
-        return new ArrayList<>(products);
-    }
-
     public static Products from(List<Product> products) {
         Products productCollection = new Products();
         products.forEach(productCollection::add);
@@ -34,11 +30,11 @@ public class Products {
         products.add(product);
     }
 
-    public Product findByName(String name) {
+    public Product findByName(Name name) {
         return findOptionalProductByName(name).orElseThrow(() -> new IllegalArgumentException("자판기에 등록되지 않은 상품 이름입니다."));
     }
 
-    private Optional<Product> findOptionalProductByName(String name) {
+    private Optional<Product> findOptionalProductByName(Name name) {
         return products.stream()
                        .filter(product -> product.isNameEqualsTo(name))
                        .findAny();
