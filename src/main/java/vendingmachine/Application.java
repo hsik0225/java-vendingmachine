@@ -23,7 +23,7 @@ public class Application {
         }
 
         if (vendingMachine.canReturnChanges()) {
-            OutputView.printCoinCount(vendingMachine.getCoinCount());
+            OutputView.printChanges(vendingMachine.returnChanges());
             return;
         }
 

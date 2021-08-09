@@ -33,8 +33,8 @@ public class VendingMachine {
         return products.canBuyAnything(getRemainingMoney());
     }
 
-    public Map<Integer, Integer> getCoinCount() {
-        return changesModule.getCoinBox();
+    public Map<Integer, Integer> returnChanges() {
+        return changesModule.returnChanges(this.remainingMoney);
     }
 
     public boolean canBuy() {

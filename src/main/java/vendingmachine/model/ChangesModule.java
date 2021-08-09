@@ -22,7 +22,7 @@ public class ChangesModule {
         Map<Integer, Integer> coinCounts = new HashMap<>();
         List<Integer> coins = Coin.descendingOrder();
         int amount = money.getMoney();
-        while (amount > Coin.minValueCoin()) {
+        while (amount >= Coin.minValueCoin()) {
             final int coin = Randoms.pick(coins);
             if (amount >= coin) {
                 coinCounts.merge(coin, 1, (oldValue, newValue) -> oldValue + 1);
@@ -32,8 +32,19 @@ public class ChangesModule {
         return coinCounts;
     }
 
-    public Map<Integer, Integer> getCoinBox() {
-        return new HashMap<>(coinBox);
+    public Map<Integer, Integer> returnChanges(Money remainingMoney) {
+        Map<Integer, Integer> coinCount = new HashMap<>();
+        int money = remainingMoney.getMoney();
+        for (Integer coin : Coin.descendingOrder()) {
+            final int storedCount = coinBox.get(coin);
+            final int needCount = money / coin;
+            final int min = Math.min(storedCount, needCount);
+            if (min != 0) {
+                coinCount.put(coin, min);
+            }
+            money -= min * coin;
+        }
+        return coinCount;
     }
 
     public void addMoney(Money inputMoney) {
@@ -41,7 +52,7 @@ public class ChangesModule {
         for (int coin : Coin.descendingOrder()) {
             final Integer count = inputCoins.get(coin);
             if (count != null) {
-                coinBox.put(coin, count);
+                coinBox.merge(coin, count, Integer::sum);
             }
         }
     }

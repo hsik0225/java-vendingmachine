@@ -21,7 +21,8 @@ public enum Coin {
     }
 
     public static int minValueCoin() {
-        return descendingOrder().get(0);
+        final List<Integer> coins = descendingOrder();
+        return coins.get(coins.size() - 1);
     }
 
     public int getValue() {
